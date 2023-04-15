@@ -10,12 +10,15 @@ import (
 )
 
 var (
-	ApiOnly = flag.Bool("api-only", false, "run the program in API-only mode")
-	Port    = flag.Int("port", 8080, "port number to listen on")
+	ApiOnly  = flag.Bool("api-only", false, "run the program in API-only mode")
+	AllHosts = flag.Bool("all-hosts", false, "listen on 0.0.0.0")
+	Port     = flag.Int("port", 8080, "port number to listen on")
 )
 
 func main() {
 	flag.Parse()
+
+	gin.SetMode(gin.ReleaseMode)
 
 	router := gin.Default()
 
@@ -30,5 +33,9 @@ func main() {
 	router.POST("/convert/upload", handlers.HandleFileUpload)
 	router.POST("/convert/text", handlers.HandleTextData)
 
-	router.Run(fmt.Sprintf(":%d", *Port))
+	if *AllHosts {
+		router.Run(fmt.Sprintf(":%d", *Port))
+	} else {
+		router.Run(fmt.Sprintf("127.0.0.1:%d", *Port))
+	}
 }
