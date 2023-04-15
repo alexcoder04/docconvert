@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>docconvert</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous" defer></script>
+    <script defer>
+    function copyOriginal() {
+        let text = document.getElementById("myText").value;
+        navigator.clipboard.writeText(text).then(() => {
+            document.querySelector("#btn-copy-original").innerHTML = "<i class='bi-clipboard'> Copied!</i>"
+            setTimeout(() => {
+                document.querySelector("#btn-copy-original").innerHTML = "<i class='bi-clipboard'></i> Copy original text"
+            }, 3000);
+        });
+    }
+
+    function copyChatGPT() {
+        let text = `Please summarize the following text:\n${document.getElementById("myText").value}`;
+        navigator.clipboard.writeText(text).then(() => {
+            document.querySelector("#btn-copy-chatgpt").innerHTML = "<i class='bi-clipboard'> Copied!</i>"
+            setTimeout(() => {
+                document.querySelector("#btn-copy-chatgpt").innerHTML = "<i class='bi-clipboard'></i> Copy ChatGPT summarize prompt"
+            }, 3000);
+        });
+    }
+
+    function downloadTxt() {
+        let text = document.getElementById("myText").value;
+        let element = document.createElement("a");
+        element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+        element.setAttribute("download", "yourtext.txt");
+        element.style.display = "none";
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const tabs = document.querySelectorAll('.nav-tabs > li > button');
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                localStorage.setItem("activeTab", tab.getAttribute("data-bs-target"));
+            });
+        });
+
+        const activeTab = localStorage.getItem("activeTab");
+
+        if (activeTab) {
+            const tab = document.querySelector(`.nav-tabs button[data-bs-target="${activeTab}"]`);
+            tab.click();
+        }
+    })
+    </script>
+</head>
+
+
+<body>
+    
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <i class="bi-file-richtext"></i>
+            docconvert
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/alexcoder04/docconvert" target="_blank">
+                        <i class="bi-github"></i>
+                        GitHub
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<main class="container-fluid mt-3">
+    <div class="container mt-5">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#documents">
+                    <i class="bi-file-text"></i>
+                    Documents
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#images">
+                    <i class="bi-image"></i>
+                    Images
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#image2text">
+                    <i class="bi-file-break"></i>
+                    Image-To-Text
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="documents">
+                <h2>Convert documents</h2>
+                <form method="post" action="/convert/upload" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="fromtype" class="form-label">Input File Type</label>
+                        <select class="form-select form-control" id="inputFileType" name="fromtype">
+                            <option value="txt">Text (.txt)</option>
+                            <option value="odt">OpenDocument Text (LibreOffice, .odt)</option>
+                            <option value="docx">Microsoft Word (.docx)</option>
+                            <option value="html">HTML (.html)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="totype" class="form-label">Output File Type</label>
+                        <select class="form-select form-control" id="outputFileType" name="totype">
+                            <option value="odt">OpenDocument Text (LibreOffice, .odt)</option>
+                            <option value="docx">Microsoft Word (.docx)</option>
+                            <option value="html">HTML (.html)</option>
+                            <option value="txt">Text (.txt)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fileInput" class="form-label">Select File</label>
+                        <input class="form-control" type="file" id="fileInput" name="file" accept=".txt,.docx,.odt,.html">
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi-gear-wide-connected"></i>
+                        Convert
+                    </button>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="images">
+                <h2>Convert images</h2>
+                <p>Work in progress</p>
+            </div>
+
+            <div class="tab-pane fade" id="image2text">
+                <h2>Extract text from images</h2>
+                <form action="/img2text" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" accept=".png,.jpg,.jpeg,.webp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="language" class="form-label">Language</label>
+                        <select class="form-select form-control" id="language" name="language">
+                            <option value="eng">English</option>
+                            <option value="deu">German</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi-binoculars"></i>
+                        Detect
+                    </button>
+                </form>
+                <div class="col-md-8 w-100">
+                    <div class="form-group">
+                        <textarea class="form-control my-3" id="myText" rows="10" placeholder="Detected text will appear here" readonly>{{.text}}</textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-success" id="btn-copy-original" onclick="copyOriginal()">
+                            <i class="bi-clipboard"></i>
+                            Copy original text
+                        </button>
+                        <button class="btn btn-primary" id="btn-copy-chatgpt" onclick="copyChatGPT()">
+                            <i class="bi-clipboard"></i>
+                            Copy ChatGPT summarize prompt
+                        </button>
+                        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi-download"></i>
+                            Download
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#" onclick="downloadTxt()">Download .txt</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

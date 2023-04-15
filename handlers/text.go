@@ -9,7 +9,7 @@ import (
 )
 
 type TextRequest struct {
-	Text   string `json:"text" binding:"required"`
+	Text   string `form:"text" binding:"required"`
 	ToType string `form:"totype" binding:"required"`
 }
 

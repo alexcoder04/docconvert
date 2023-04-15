@@ -6,6 +6,7 @@ require (
 	github.com/alexcoder04/friendly/v2 v2.1.1
 	github.com/alexcoder04/gopandoc v0.0.0-20230415144420-30dce2bc987b
 	github.com/gin-gonic/gin v1.9.0
+	github.com/google/uuid v1.3.0
 )
 
 require (
