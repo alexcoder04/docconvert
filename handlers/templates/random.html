@@ -4,6 +4,7 @@
     {{template "head.html"}}
 
     <script src="/static/random.js" defer></script>
+    <script src="/static/tabs.js" defer></script>
 </head>
 
 
@@ -18,6 +19,12 @@
                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#number">
                     <i class="bi-calculator"></i>
                     Number
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#name">
+                    <i class="bi-emoji-sunglasses"></i>
+                    Name
                 </button>
             </li>
         </ul>
@@ -42,6 +49,45 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="generatedNumber" readonly>
                     <button class="btn btn-outline-primary" type="button" id="copyButton">
+                        <i class='bi-clipboard'></i>
+                        Copy
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="tab-pane fade" id="name">
+                <div class="row mb-4">
+                    <div class="col">
+                        <h2>Pick Random Name</h2>
+                        <ul id="name-list" class="list-group"></ul>
+                      </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="input-group">
+                            <input id="new-name" type="text" class="form-control" placeholder="Enter a new name...">
+                            <button id="add-name" class="btn btn-primary">
+                                <i class="bi-plus-square"></i>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col">
+                        <button id="pick-random" class="btn btn-success">
+                            <i class="bi-shuffle"></i>
+                            Pick a Random Name
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="pickedName" readonly>
+                    <button class="btn btn-outline-primary" type="button" id="copyNameButton">
                         <i class='bi-clipboard'></i>
                         Copy
                     </button>
