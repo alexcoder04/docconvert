@@ -3,8 +3,10 @@
 <head>
     {{template "head.html"}}
 
+    <script src="https://alexcoder04.github.io/ac04.js/tabs.js" defer></script>
+    <script src="https://alexcoder04.github.io/ac04.js/copy.js" defer></script>
+    <script src="https://alexcoder04.github.io/ac04.js/ls-arr.js" defer></script>
     <script src="/static/random.js" defer></script>
-    <script src="/static/tabs.js" defer></script>
 </head>
 
 
@@ -57,14 +59,14 @@
 
 
             <div class="tab-pane fade" id="name">
-                <div class="row mb-4">
+                <div class="row mb-3">
                     <div class="col">
                         <h2>Pick Random Name</h2>
                         <ul id="name-list" class="list-group"></ul>
                       </div>
                 </div>
 
-                <div class="row mb-4">
+                <div class="row mb-3">
                     <div class="col">
                         <div class="input-group">
                             <input id="new-name" type="text" class="form-control" placeholder="Enter a new name...">
@@ -76,7 +78,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-4">
+                <div class="row mb-3">
                     <div class="col">
                         <button id="pick-random" class="btn btn-success">
                             <i class="bi-shuffle"></i>

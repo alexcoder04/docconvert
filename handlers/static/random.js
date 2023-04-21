@@ -7,9 +7,9 @@ const generatedNumberInput = document.getElementById("generatedNumber");
 const copyButton = document.getElementById("copyButton");
 
 generateNumberButton.addEventListener("click", function() {
-    var minNumber = parseInt(minNumberInput.value);
-    var maxNumber = parseInt(maxNumberInput.value);
-    var randomNumber = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
+    const minNumber = parseInt(minNumberInput.value);
+    const maxNumber = parseInt(maxNumberInput.value);
+    const randomNumber = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
     generatedNumberInput.value = randomNumber;
 
     generatedNumberInput.classList.add("is-valid");
@@ -18,13 +18,8 @@ generateNumberButton.addEventListener("click", function() {
     }, 1000);
 });
 
-copyButton.addEventListener("click", function() {
-    navigator.clipboard.writeText(generatedNumberInput.value).then(() => {
-        copyButton.innerHTML = "<i class='bi-clipboard'> Copied!</i>"
-        setTimeout(() => {
-            copyButton.innerHTML = "<i class='bi-clipboard'></i> Copy"
-        }, 3000);
-    });
+addCopyFunction(copyButton, () => {
+    return generatedNumberInput.value;
 });
 
 
@@ -57,32 +52,17 @@ function addNameToDOM(name) {
     newNameInput.value = "";
 }
 
-function addNameToStorage(name) {
-    var existingArray = JSON.parse(localStorage.getItem("names")) || [];
-    existingArray.push(name);
-    localStorage.setItem("names", JSON.stringify(existingArray));
-}
-
-function removeNameFromStorage(name) {
-    let existingArray = JSON.parse(localStorage.getItem("names")) || [];
-    const index = existingArray.indexOf(name);
-    if (index > -1) {
-        existingArray.splice(index, 1);
-    }
-    localStorage.setItem("names", JSON.stringify(existingArray));
-}
-
 addNameButton.addEventListener("click", () => {
     const newName = newNameInput.value.trim();
     if (newName) {
         addNameToDOM(newName);
-        addNameToStorage(newName);
+        lsArrAdd("names", newName);
     }
 });
 
 nameList.addEventListener("click", (event) => {
     if (event.target.tagName === "BUTTON") {
-        removeNameFromStorage(event.target.parentElement.querySelector("span").textContent);
+        lsArrRemove("names", event.target.parentElement.querySelector("span").textContent);
         event.target.parentElement.remove();
     }
 });
@@ -94,15 +74,10 @@ pickRandomButton.addEventListener("click", () => {
 });
 
 
-copyNameButton.addEventListener("click", function() {
-    navigator.clipboard.writeText(generatedNumberInput.value).then(() => {
-        copyNameButton.innerHTML = "<i class='bi-clipboard'> Copied!</i>"
-        setTimeout(() => {
-            copyNameButton.innerHTML = "<i class='bi-clipboard'></i> Copy"
-        }, 3000);
-    });
+addCopyFunction(copyNameButton, () => {
+    return randomNameDisplay.value;
 });
 
-(JSON.parse(localStorage.getItem("names")) || []).forEach(name => {
+lsArrGetFull("names").forEach(name => {
     addNameToDOM(name);
 });

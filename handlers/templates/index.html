@@ -3,8 +3,9 @@
 <head>
     {{template "head.html"}}
 
+    <script src="https://alexcoder04.github.io/ac04.js/tabs.js" defer></script>
+    <script src="https://alexcoder04.github.io/ac04.js/copy.js" defer></script>
     <script src="/static/img2text.js" defer></script>
-    <script src="/static/tabs.js" defer></script>
 </head>
 
 
@@ -97,11 +98,11 @@
                         <textarea class="form-control my-3" id="myText" rows="10" placeholder="Detected text will appear here" readonly>{{.text}}</textarea>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-success" id="btn-copy-original" onclick="copyOriginal()">
+                        <button class="btn btn-success" id="btn-copy-original">
                             <i class="bi-clipboard"></i>
                             Copy original text
                         </button>
-                        <button class="btn btn-primary" id="btn-copy-chatgpt" onclick="copyChatGPT()">
+                        <button class="btn btn-primary" id="btn-copy-chatgpt">
                             <i class="bi-clipboard"></i>
                             Copy ChatGPT summarize prompt
                         </button>
