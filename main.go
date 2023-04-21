@@ -25,7 +25,9 @@ func main() {
 	router.StaticFS("/static", handlers.StaticFS)
 
 	router.GET("/", handlers.HandleIndex)
-	router.POST("/img2text", handlers.HandleImg2Text)
+	router.POST("/", handlers.HandleImg2Text)
+
+	router.GET("/random", handlers.HandleRandom)
 
 	router.POST("/convert/upload", handlers.HandleFileUpload)
 	router.POST("/convert/text", handlers.HandleTextData)

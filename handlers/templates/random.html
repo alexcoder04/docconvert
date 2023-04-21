@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{template "head.html"}}
+
+    <script src="/static/random.js" defer></script>
+</head>
+
+
+<body>
+    
+{{template "navbar.html"}}
+
+<main class="container-fluid mt-3">
+    <div class="container mt-5">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#number">
+                    <i class="bi-calculator"></i>
+                    Number
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="number">
+                <h2>Random Number Generator</h2>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="minNumber" class="form-label">Minimum Number:</label>
+                        <input type="number" class="form-control" id="minNumber" min="0" value="1">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="maxNumber" class="form-label">Maximum Number:</label>
+                        <input type="number" class="form-control" id="maxNumber" min="0" value="6">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success btn-lg mb-3" id="generateNumber">
+                    <i class="bi-shuffle"></i>
+                    Generate Number
+                </button>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="generatedNumber" readonly>
+                    <button class="btn btn-outline-primary" type="button" id="copyButton">
+                        <i class='bi-clipboard'></i>
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
