@@ -15,4 +15,4 @@ go build
 ## Command-line arguments
 
  - `-port`: port to run on, default 8080
- - `-api-only`: run in api-only mode, without web gui
+ - `-all-hosts`: whether to listen on all hosts, not just localhost

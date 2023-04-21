@@ -64,7 +64,7 @@ func HandleImg2Text(c *gin.Context) {
 		return
 	}
 
-	Template.Execute(c.Writer, gin.H{
+	Templates.ExecuteTemplate(c.Writer, "index.html", gin.H{
 		"text": string(data),
 	})
 }
