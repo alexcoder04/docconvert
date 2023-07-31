@@ -5,6 +5,7 @@
 
     <script src="https://alexcoder04.github.io/ac04.js/tabs.js" defer></script>
     <script src="https://alexcoder04.github.io/ac04.js/copy.js" defer></script>
+    <script src="/static/image.js" defer></script>
     <script src="/static/img2text.js" defer></script>
 </head>
 
@@ -71,7 +72,22 @@
 
             <div class="tab-pane fade" id="images">
                 <h2>Convert images</h2>
-                <p>Work in progress</p>
+                <div class="mb-3">
+                    <label for="imageUpload" class="form-label">Upload an image</label>
+                    <input type="file" class="form-control" id="imageUpload" accept=".png,.jpg,.jpeg,.webp">
+                </div>
+                <div class="progress mb-3">
+                    <div class="progress-bar" id="image-upload-progress" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="totype" class="form-label">Output Format</label>
+                    <select class="form-select form-control" id="outputFileType" name="totype">
+                        <option value="png">PNG</option>
+                        <option value="jpg">JPG</option>
+                        <option value="webp">WEBP</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-success">Convert</button>
             </div>
 
             <div class="tab-pane fade" id="image2text">

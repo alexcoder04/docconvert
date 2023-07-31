@@ -15,6 +15,12 @@ type UploadRequest struct {
 	ToType   string `form:"totype" binding:"required"`
 }
 
+func HandleImageUpload(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"status": "ok",
+	})
+}
+
 func HandleFileUpload(c *gin.Context) {
 	var form UploadRequest
 	if err := c.ShouldBind(&form); err != nil {

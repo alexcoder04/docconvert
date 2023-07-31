@@ -32,6 +32,8 @@ func main() {
 	router.POST("/convert/upload", handlers.HandleFileUpload)
 	router.POST("/convert/text", handlers.HandleTextData)
 
+	router.POST("/imageupload", handlers.HandleImageUpload)
+
 	if *AllHosts {
 		router.Run(fmt.Sprintf(":%d", *Port))
 	} else {
